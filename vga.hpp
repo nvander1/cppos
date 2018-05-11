@@ -82,4 +82,4 @@ class Terminal {
       reinterpret_cast<volatile std::uint16_t* const>(Address);
 };
 
-}
+} // namespace vga
