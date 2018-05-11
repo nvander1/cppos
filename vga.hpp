@@ -54,6 +54,20 @@ class Terminal {
     return *this;
   }
 
+  void scrollup() {
+    for (auto y = 1ULL; y < Height; ++y) {
+      for (auto x = 0ULL; x < Width; ++x) {
+        auto cur_index = y * Width + x;
+        auto new_index = (y-1) * Width + x;
+        d_buffer[new_index] = d_buffer[cur_index];
+      }
+    }
+    for (auto x = 0ULL; x < Width; ++x) {
+      auto index = (Height - 1) * Width + x;
+      d_buffer[index] = ' ';
+    }
+  }
+
   void putc(char c) {
     if (c == '\n') {
       d_column = 0;
@@ -65,7 +79,11 @@ class Terminal {
     d_buffer[index] = entry(c, d_color);
     d_column = ((1 + d_column) % Width);
     if (d_column == 0) {
-      d_row = ((1 + d_row) % Height);
+      ++d_row;
+      if (d_row == Height) {
+        --d_row;
+        scrollup();
+      }
     }
   }
 
