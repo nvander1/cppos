@@ -78,7 +78,8 @@ class Terminal {
   std::size_t d_column;
   std::uint8_t d_color;
 
-  volatile std::uint16_t* const d_buffer = reinterpret_cast<volatile std::uint16_t* const>(Address);
+  volatile std::uint16_t* const d_buffer =
+      reinterpret_cast<volatile std::uint16_t* const>(Address);
 };
 
 }
