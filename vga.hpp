@@ -30,7 +30,7 @@ inline std::uint16_t entry(unsigned char c, std::uint8_t color) {
   return std::uint16_t{c} | (std::uint16_t{color} << 8);
 }
 
-template <std::size_t Width = 25, std::size_t Height = 25,
+template <std::size_t Width = 80, std::size_t Height = 25,
           std::uint64_t Address = 0xB8000>
 class Terminal {
  public:
@@ -55,6 +55,12 @@ class Terminal {
   }
 
   void putc(char c) {
+    if (c == '\n') {
+      d_column = 0;
+      ++d_row;
+      return;
+    }
+
     auto index = d_row * Width + d_column;
     d_buffer[index] = entry(c, d_color);
     d_column = ((1 + d_column) % Width);

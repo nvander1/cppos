@@ -8,5 +8,5 @@
 
 extern "C" void kernel_main(void) {
   auto term = vga::Terminal{};
-  term << "Hello, World!";
+  term << "Hello, World!\n\nThis is hopefully on a new line!\nWoot";
 }
