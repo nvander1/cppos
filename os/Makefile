@@ -7,8 +7,8 @@ all: os
 kernel.o: kernel.cpp vga.hpp string.hpp
 	$(CXX) $(CXXFLAGS) -c -o kernel.o kernel.cpp $(LDLIBS)
 
-os: kernel.o boot.o linker.ld
-	$(CXX) $(CXXFLAGS) -T linker.ld -o os.bin boot.o kernel.o $(LDLIBS)
+os: tty.o kernel.o boot.o linker.ld
+	$(CXX) $(CXXFLAGS) -T linker.ld -o os.bin boot.o kernel.o tty.o $(LDLIBS)
 
 .PHONY: test
 test:
