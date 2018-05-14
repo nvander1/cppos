@@ -1,4 +1,4 @@
-#include "tty.hpp"
+#include "kernel/tty.hpp"
 #include <cstdint>
 
 #ifndef __i386__

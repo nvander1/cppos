@@ -1,4 +1,4 @@
-#include "tty.hpp"
+#include "kernel/tty.hpp"
 #include "string.hpp"
 #include "vga.hpp"
 #include <cstdint>
