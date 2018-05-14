@@ -5,5 +5,5 @@ Lots of help from [OSDev](https://wiki.osdev.org).
 
 To run it you need qemu installed with i386 support.
 
-    make
-    make test
+    ./iso.sh
+    ./qemu.sh
