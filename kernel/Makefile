@@ -2,7 +2,7 @@ DEFAULT_HOST!=../default-host.sh
 HOST?=DEFAULT_HOST
 HOSTARCH!=../target-triplet-to-arch.sh $(HOST)
 
-CXXFLAGS?=-O2 -g
+CXXFLAGS?=
 CPPFLAGS?=
 LDFLAGS?=
 LIBS?=
@@ -13,7 +13,7 @@ EXEC_PREFIX?=$(PREFIX)
 BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
-CXXFLAGS:=$(CXXFLAGS) -ffreestanding -Wall -Wextra -Wpedantic
+CXXFLAGS:=$(CXXFLAGS) -ffreestanding -fno-stack-protector -Wall -Wextra -Wpedantic
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lgcc
@@ -31,21 +31,24 @@ KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS)\
 kernel/kernel.o
 
-OBJS=\
-$(ARCHDIR)/crti.o\
-$(ARCHDIR)/crtbegin.o\
-$(KERNEL_OBJS)\
-$(ARCHDIR)/crtend.o\
-$(ARCHDIR)/crtn.o\
+OBJS=$(KERNEL_OBJS)
+LINK_LIST=$(LDFLAGS) $(KERNEL_OBJS) $(LIBS)
 
-LINK_LIST=\
-$(LDFLAGS)\
-$(ARCHDIR)/crti.o\
-$(ARCHDIR)/crtbegin.o\
-$(KERNEL_OBJS)\
-$(LIBS)\
-$(ARCHDIR)/crtend.o\
-$(ARCHDIR)/crtn.o\
+# OBJS=\
+# $(ARCHDIR)/crti.o\
+# $(ARCHDIR)/crtbegin.o\
+# $(KERNEL_OBJS)\
+# $(ARCHDIR)/crtend.o\
+# $(ARCHDIR)/crtn.o\
+
+# LINK_LIST=\
+# $(LDFLAGS)\
+# $(ARCHDIR)/crti.o\
+# $(ARCHDIR)/crtbegin.o\
+# $(KERNEL_OBJS)\
+# $(LIBS)\
+# $(ARCHDIR)/crtend.o\
+# $(ARCHDIR)/crtn.o\
 
 .PHONY: all clean install install-headers install-kernel
 
@@ -55,8 +58,8 @@ cppos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CXX) -T $(ARCHDIR)/linker.ld -o $@ $(CXXFLAGS) $(LINK_LIST)
 	#grub-file --is-x86-multiboot myos.kernel
 
-$(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
-	OBJ=`$(CXX) $(CXXFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
+#$(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
+#	OBJ=`$(CXX) $(CXXFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
 
 .cpp.o:
 	$(CXX) -MD -c $< -o $@ -std=c++17 $(CXXFLAGS) $(CPPFLAGS)

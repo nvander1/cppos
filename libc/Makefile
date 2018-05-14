@@ -13,7 +13,7 @@ EXEC_PREFIX?=$(PREFIX)
 INCLUDEDIR?=$(PREFIX)/include
 LIBDIR?=$(PREFIX)/lib
 
-CXXFLAGS:=$(CXXFLAGS) -ffreestanding -Wall -Wextra -Wpedantic
+CXXFLAGS:=$(CXXFLAGS) -ffreestanding -fno-stack-protector -Wall -Wextra -Wpedantic
 CPPFLAGS:=$(CPPFLAGS) -D__is_libc -Iinclude
 LIBK_CXXFLAGS:=$(CXXFLAGS)
 LIBK_CPPFLAGS:=$(CPPFLAGS) -D__is_libk
