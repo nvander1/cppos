@@ -1,3 +1,5 @@
 *.o
 *.bin
-build/
+*.d
+isodir
+sysroot
