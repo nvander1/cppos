@@ -16,7 +16,7 @@ INCLUDEDIR?=$(PREFIX)/include
 CXXFLAGS:=$(CXXFLAGS) -ffreestanding -Wall -Wextra -Wpedantic
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
-LIBS:=$(LIBS) -nostdlib -lk -lgcc
+LIBS:=$(LIBS) -nostdlib -lgcc
 
 ARCHDIR=arch/$(HOSTARCH)
 
@@ -62,7 +62,7 @@ $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	$(CXX) -MD -c $< -o $@ -std=c++17 $(CXXFLAGS) $(CPPFLAGS)
 
 .S.o:
-	$(CXX) -MD -c $< -o $@ $(CXXFLAGS) $(CPPFLAGS)
+	as $(ASFLAGS) $< -o $@
 
 clean:
 	rm -f cppos.kernel
@@ -75,7 +75,7 @@ install-headers:
 	mkdir -p $(DESTDIR)$(INCLUDEDIR)
 	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
 
-install-kernel:
+install-kernel: cppos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)
 	cp cppos.kernel $(DESTDIR)$(BOOTDIR)
 

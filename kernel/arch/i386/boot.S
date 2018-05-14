@@ -52,6 +52,7 @@ _start:
     # GDT should be loaded here
     # paging should be enabled here
     # C++ things like global constructors and exceptions need runtime support
+    call _init
 
     # enter kernel
     # ABI requires stack be 16 byte aligned at the time of call
