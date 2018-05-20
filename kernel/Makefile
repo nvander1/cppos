@@ -56,7 +56,6 @@ all: cppos.kernel
 
 cppos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CXX) -T $(ARCHDIR)/linker.ld -o $@ $(CXXFLAGS) $(LINK_LIST)
-	#grub-file --is-x86-multiboot myos.kernel
 
 #$(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 #	OBJ=`$(CXX) $(CXXFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
