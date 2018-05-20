@@ -1,5 +1,4 @@
 #include "kernel/tty.hpp"
-#include <cstdint>
 
 #ifndef __i386__
 #error "need ix86 elf compiler"
@@ -23,6 +22,7 @@ void scrolling_test(tty::Terminal& term) {
 
 extern "C" void kernel_main(void) {
   auto term = tty::Terminal();
+  term.put_string("Hello, from kernel!");
 
-  scrolling_test(term);
+  //scrolling_test(term);
 }

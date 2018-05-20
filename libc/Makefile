@@ -58,7 +58,7 @@ libk.a: $(LIBK_OBJS)
 	$(CXX) -MD -c $< -o $@ -std=c++17 $(CXXFLAGS) $(CPPFLAGS)
 
 .S.o:
-	as $(ASFLAGS) $< -o $@
+	$(CXX) -MD -c $< -o $@ -std=c++17 $(CPPFLAGS)
 
 .cpp.libk.o:
 	$(CXX) -MD -c $< -o $@ -std=c++17 $(LIBK_CXXFLAGS) $(LIBK_CPPFLAGS)

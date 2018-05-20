@@ -5,9 +5,9 @@ PROJECTS="libc kernel"
 export MAKE=${MAKE:-make}
 export HOST=${HOST:-$(./default-host.sh)}
 
-#export AR=${HOST}-ar
-#export AS=${HOST}-as
-#export CXX=${HOST}-g++
+export AR=${HOST}-ar
+export AS=${HOST}-as
+export CXX=${HOST}-g++
 
 export PREFIX=/usr
 export EXEC_PREFIX=$PREFIX
@@ -19,8 +19,8 @@ export CXXFLAGS='-O2 -g'
 export CPPFLAGS=''
 
 export SYSROOT="$(pwd)/sysroot"
-#export CXX="$CXX --sysroot=$SYSROOT"
+export CXX="$CXX --sysroot=$SYSROOT"
 
-#if echo "$HOST" | grep -Eq -- '-elf($|-)'; then
-#    export CXX="$CXX -isystem=$INCLUDEDIR"
-#fi
+if echo "$HOST" | grep -Eq -- '-elf($|-)'; then
+    export CXX="$CXX -isystem=$INCLUDEDIR"
+fi

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace vga {
 
@@ -23,12 +23,12 @@ enum Color {
   WHITE = 15
 };
 
-inline constexpr std::uint8_t entry_color(Color fg, Color bg) {
+inline constexpr uint8_t entry_color(Color fg, Color bg) {
   return fg | (bg << 4);
 }
 
-inline constexpr std::uint16_t entry(unsigned char c, std::uint8_t color) {
-  return std::uint16_t{c} | (std::uint16_t{color} << 8);
+inline constexpr uint16_t entry(unsigned char c, uint8_t color) {
+  return uint16_t{c} | (uint16_t{color} << 8);
 }
 
 } // namespace vga

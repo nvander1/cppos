@@ -16,7 +16,7 @@ INCLUDEDIR?=$(PREFIX)/include
 CXXFLAGS:=$(CXXFLAGS) -ffreestanding -fno-stack-protector -Wall -Wextra -Wpedantic
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
-LIBS:=$(LIBS) -nostdlib -lgcc
+LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
 ARCHDIR=arch/$(HOSTARCH)
 
@@ -65,7 +65,7 @@ cppos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CXX) -MD -c $< -o $@ -std=c++17 $(CXXFLAGS) $(CPPFLAGS)
 
 .S.o:
-	as $(ASFLAGS) $< -o $@
+	$(CXX) -MD -c $< -o $@ $(CXXFLAGS) $(CPPFLAGS)
 
 clean:
 	rm -f cppos.kernel
